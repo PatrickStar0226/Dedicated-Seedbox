@@ -99,7 +99,8 @@ tput sgr0; clear
 normal_1;echo "Start Closing System New User SSH Privilege";
 usermod -L "$username"
 chsh "$username" -s /sbin/nologin
-touch /etc/nologin
+sudo echo "DenyUsers $username" >> /etc/ssh/sshd_config
+sudo systemctl restart sshd
 
 normal_1; echo "Seedbox Installation Complete"
 publicip=$(curl https://ipinfo.io/ip)
